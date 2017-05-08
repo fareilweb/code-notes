@@ -146,7 +146,7 @@
 
 
 /* Usage
-$("#ss").socialSharers( {
+$("#ss").socialSharer({
     popup_width: 600,
     popup_height: 400,
     center_popup: true,
