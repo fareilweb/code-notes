@@ -1,0 +1,11 @@
+Install-URL_Rewrite_on_IIS_10.txt
+
+Fixed the problem.
+
+Open Regedit > HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\InetStp
+Edit "MajorVersion" and set the "DECIMAL" value to 9
+Hit F5 while in Regedit
+Now go install the ReWrite 2.0 module.
+Change the "MajorVersion" back to "DECIMAL" value of 10
+Hit F5 while in Regedit
+Close Regedit

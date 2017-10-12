@@ -3,6 +3,7 @@ var Geo = function () {
     this.latitude = "";
     this.longitude = "";
     this.position = {};
+    this.google_api_key = "";
 
     /**
      * Test the current browser for geolocation api functionality
@@ -11,7 +12,6 @@ var Geo = function () {
     this.isGeolocationAvailable = function () {
         return !!navigator.geolocation;
     }
-
 
     /** 
      * Get User Geo Location 
@@ -42,5 +42,53 @@ var Geo = function () {
 
         }, options);
     };
+	
+	
+	
+	/** ==================================================== *
+		Gogle Api Methods 
+	 ** ==================================================== */
+	
+	/**
+	 * Get City By Coordinates
+	 * @param {object} position
+	 * @param {function} callback
+	 */
+	this.getCityByPosition = function (position, callback) {
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+        var api_url = "https://maps.googleapis.com/maps/api/geocode/json?";
+        api_url += "latlng=" + lat + "," + lng;
+        api_url += "&key=" + _self.google_api_key;
+
+        $.get(api_url).done(function (response) {
+            response.results.forEach(function (item, index) {
+                if (item.types[0] == "administrative_area_level_3") {
+                    var city = item.address_components[0].long_name;
+                    callback(city);
+                }
+            });
+        }).fail(function (response) {
+
+        });
+    }
+
+	/**
+	 * Get Position By City
+	 * @param {string} city
+	 * @param {function} callback
+	 */
+    this.getPositionByCity = function (city, callback) {
+        var api_url = "https://maps.googleapis.com/maps/api/geocode/json?";
+        api_url += "address=" + city;
+        api_url += "&key=" + _self.google_api_key;
+
+        $.get(api_url).done(function (response) {
+            var location = response.results[0].geometry.location;
+            callback(location);
+        }).fail(function (response) {
+
+        });
+    }
 
 };
