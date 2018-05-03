@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    angular.module('OtoSite').directive('fileUpload', fileUpload);
+    angular.module('AngularModuleName').directive('fileUpload', fileUpload);
 
     /**
      * The Directive Function
