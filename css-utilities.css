@@ -2,7 +2,7 @@
  * CSS Utilities Collection
  **/
 
-/* Vertical Alignment */
+/* Vertical Alignment - Display Table */
 .vertical-middle-container {
     display: table;
     height: 100%;
