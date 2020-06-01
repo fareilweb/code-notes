@@ -1,2 +1,0 @@
-set ssl:ca-file "cert2.crt"
-set ssl:check-hostname no
