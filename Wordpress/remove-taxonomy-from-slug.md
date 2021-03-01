@@ -1,12 +1,12 @@
 
 ## Fix request
-    add_filter('request', 'fareilweb_change_term_request', 1, 1 );
+    add_filter('request', 'fareilweb_change_term_request', 1, 1);
     function fareilweb_change_term_request($query){
 
         $tax_name = 'product_cat'; // specify you taxonomy name here, it can be also 'category' or 'post_tag'
 
         // Request for child terms differs, we should make an additional check
-        if( $query['attachment'] ) :
+        if( !empty($query['attachment']) ) :
             $include_children = true;
             $name = $query['attachment'];
         else:
@@ -55,7 +55,7 @@
 
 ## Fix permalink
     add_filter( 'term_link', 'fareilweb_term_permalink', 10, 3 );
-    function fareilweb_term_permalink( $url, $term, $taxonomy ){
+    function fareilweb_term_permalink( $url, $term, $taxonomy ) {
 
         $taxonomy_name = 'product_cat'; // your taxonomy name here
         $taxonomy_slug = 'product_cat'; // the taxonomy slug can be different with the taxonomy name (like 'post_tag' and 'tag' )
@@ -69,7 +69,7 @@
     }
 
 
-## Redirect 301 of old url to fixed urls (if needed)
+## Redirect 301 of old urls to fixed urls (if needed)
     add_action('template_redirect', 'fareilweb_old_term_redirect');
     function fareilweb_old_term_redirect() {
 
