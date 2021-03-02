@@ -42,7 +42,7 @@
 
 
 
-## 4.
+## 4. TODO - remove from taxonomy/categpory (archive)
 
 
 ## Redirect 301 of old urls to fixed urls (if needed)
