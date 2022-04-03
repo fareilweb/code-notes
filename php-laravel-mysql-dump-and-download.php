@@ -5,7 +5,7 @@ Route::get('dbdump', function(Request $request) {
     if ($request->has('pass') === false || $request->get('pass') !== 'secretpass') {
         return die('Auth failed');
     }
-
+    
     $DB_HOST = env('DB_HOST');
     $DB_USERNAME = env('DB_USERNAME');
     $DB_PASSWORD = env('DB_PASSWORD');
@@ -28,12 +28,13 @@ Route::get('dbdump', function(Request $request) {
     // Delete the dump
     unlink($dumpFilePath);
 
-    if (file_exists("{$dumpFilePath}.zip")) {
+    if ($request->boolean('download') === true && file_exists("{$dumpFilePath}.zip")) {
         return response()->download("{$dumpFilePath}.zip", "{$dumpFileName}.zip");
     } else {
-        return 'Error: <br>' . array_reduce($out, function($carry, $item) {
+        return 'Output <br>' . array_reduce($out, function($carry, $item) {
             if (empty($carry)) { $carry =  ''; }
             return $carry .= $item . '<br>';
         });
     }
+    
 });
