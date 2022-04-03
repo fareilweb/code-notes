@@ -2,7 +2,7 @@
 
 
 Route::get('dbdump', function(Request $request) {
-    if ($request->has('temp_pass') === false || $request->get('temp_pass') !== 'secretpass') {
+    if ($request->has('pass') === false || $request->get('pass') !== 'secretpass') {
         return die('Auth failed');
     }
 
