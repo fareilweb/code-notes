@@ -1,7 +1,10 @@
-<?php 
+<?php
 
-Route::get('dbdump', function() {
-    // return die('Comment me to use');
+
+Route::get('dbdump', function(Request $request) {
+    if ($request->has('temp_pass') === false || $request->get('temp_pass') !== 'secretpass') {
+        return die('Auth failed');
+    }
 
     $DB_HOST = env('DB_HOST');
     $DB_USERNAME = env('DB_USERNAME');
@@ -12,7 +15,7 @@ Route::get('dbdump', function() {
     $dumpFilePath = realpath(app_path('../../dbdumps')) . "/{$dumpFileName}";
 
     // Make the dump
-    $dumpCommand = "mysqldump --no-tablespaces --user={$DB_USERNAME} --password={$DB_PASSWORD} --host={$DB_HOST} {$DB_DATABASE} --result-file={$dumpFilePath} 2>&1";
+    $dumpCommand = "mysqldump --no-tablespaces --single-transaction --user={$DB_USERNAME} --password={$DB_PASSWORD} --host={$DB_HOST} {$DB_DATABASE} --result-file={$dumpFilePath} 2>&1";
     set_time_limit(0);
     exec($dumpCommand, $out);
 
@@ -34,4 +37,3 @@ Route::get('dbdump', function() {
         });
     }
 });
-
