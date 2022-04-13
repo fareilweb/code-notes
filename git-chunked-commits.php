@@ -24,9 +24,11 @@ foreach($rootDirs as $dir) {
 $filesChunks = array_chunk($files, $chunkSize);
 foreach($filesChunks as $chunk) {
     foreach($chunk as $file) {
-        exec("git add {$file} && git commit -m {$file}", $out1);
+        exec("git add {$file}", $out1);
     }
-    exec("git push", $out2);
-
-    print_r([$out1, $out2]);
+    exec("git commit -m 'chunked commit' && git push", $out2);
+    print_r([
+        'out1' => $out1,
+        'out2' => $out2
+    ]);
 }
