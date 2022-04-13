@@ -27,8 +27,8 @@ foreach($filesChunks as $chunk) {
         exec("git add {$file}", $out1);
     }
     exec("git commit -m 'chunked commit' && git push", $out2);
-    print_r([
-        'out1' => $out1,
-        'out2' => $out2
-    ]);
+    // print_r([
+    //     'out1' => $out1,
+    //     'out2' => $out2
+    // ]);
 }
